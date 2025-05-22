@@ -32,7 +32,9 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-infinite-scrollview-example",
+    "example-start": "yarn workspace react-native-infinite-scrollview-example start",
+    "example-android": "yarn workspace react-native-infinite-scrollview-example android",
+    "example-ios": "yarn workspace react-native-infinite-scrollview-example ios",
     "test": "jest",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
