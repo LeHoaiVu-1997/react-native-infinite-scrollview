@@ -7,6 +7,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface InfiniteScrollviewView : RCTViewComponentView
+
+- (void)doSomething;
+- (void)setValue:(nonnull NSString *)value;
+
 @end
 
 NS_ASSUME_NONNULL_END

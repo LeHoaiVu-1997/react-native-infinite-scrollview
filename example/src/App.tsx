@@ -9,7 +9,12 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <InfiniteScrollviewView ref={ref} color="#ff0000" style={styles.box} />
+      <InfiniteScrollviewView
+        ref={ref}
+        color="#ff0000"
+        test={true}
+        style={styles.box}
+      />
       <TouchableOpacity
         style={styles.btn}
         onPress={() => ref.current?.doSomething()}
