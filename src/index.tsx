@@ -1,37 +1,68 @@
 import { forwardRef, useRef, useImperativeHandle } from 'react';
 import NativeComponent, {
   Commands,
-  type NativeProps,
 } from './InfiniteScrollviewViewNativeComponent';
+import type { ViewProps } from 'react-native';
 
 export interface InfiniteScrollviewMethods {
-  setValue(color: string): void;
-  doSomething(): void;
+  scrollDistances: (
+    distanceX: number,
+    distanceY: number,
+    durationMs: number
+  ) => void;
+  scrollContinuously: (distanceX: number, distanceY: number) => void;
+  stopScrolling: (reset?: boolean) => void;
+  reset: () => void;
 }
 
-const InfiniteScrollviewView = forwardRef<
+export interface InfiniteScrollviewProps extends ViewProps {
+  lockDirection?: 'hor' | 'ver';
+  disableTouch?: boolean;
+  spacingHorizontal?: number;
+  spacingVertical?: number;
+}
+
+const InfiniteScrollview = forwardRef<
   InfiniteScrollviewMethods,
-  NativeProps
+  InfiniteScrollviewProps
 >((props, ref) => {
   const nativeRef = useRef(null);
 
   useImperativeHandle(ref, () => ({
-    setValue(color: string) {
-      console.log('nativeRef.current null: ', nativeRef.current == null);
+    scrollDistances(distanceX: number, distanceY: number, durationMs: number) {
       if (nativeRef.current != null) {
-        Commands.setValue(nativeRef.current, color);
+        Commands.scrollDistances(
+          nativeRef.current,
+          distanceX,
+          distanceY,
+          durationMs
+        );
       }
     },
-    doSomething() {
-      console.log('nativeRef.current null: ', nativeRef.current == null);
+    scrollContinuously(distanceX: number, distanceY: number) {
       if (nativeRef.current != null) {
-        Commands.doSomething(nativeRef.current);
+        Commands.scrollContinuously(nativeRef.current, distanceX, distanceY);
+      }
+    },
+    stopScrolling(reset?: boolean) {
+      if (nativeRef.current != null) {
+        Commands.stopScrolling(nativeRef.current, reset || false);
+      }
+    },
+    reset() {
+      if (nativeRef.current != null) {
+        Commands.reset(nativeRef.current);
       }
     },
   }));
 
-  return <NativeComponent {...props} ref={nativeRef} />;
+  return (
+    <NativeComponent
+      {...props}
+      disableTouch={props.disableTouch || false}
+      ref={nativeRef}
+    />
+  );
 });
 
-export * from './InfiniteScrollviewViewNativeComponent';
-export default InfiniteScrollviewView;
+export default InfiniteScrollview;
