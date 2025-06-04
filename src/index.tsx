@@ -1,8 +1,14 @@
-import { forwardRef, useRef, useImperativeHandle } from 'react';
+import {
+  forwardRef,
+  useRef,
+  useImperativeHandle,
+  useState,
+  useMemo,
+} from 'react';
 import NativeComponent, {
   Commands,
 } from './InfiniteScrollviewViewNativeComponent';
-import type { ViewProps } from 'react-native';
+import { Platform, type LayoutRectangle, type ViewProps } from 'react-native';
 
 export interface InfiniteScrollviewMethods {
   scrollDistances: (
@@ -27,6 +33,21 @@ const InfiniteScrollview = forwardRef<
   InfiniteScrollviewProps
 >((props, ref) => {
   const nativeRef = useRef(null);
+  const [rnLaylout, setRnLayout] = useState<LayoutRectangle>({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  });
+  const nativeProps = useMemo(() => {
+    const spacing = {
+      rnWidth: rnLaylout.width,
+      rnHeight: rnLaylout.height,
+      spacingHor: props.spacingHorizontal ? props.spacingHorizontal : 0,
+      spacingVer: props.spacingVertical ? props.spacingVertical : 0,
+    };
+    return Platform.OS === 'android' ? { ...props, spacing } : props;
+  }, [rnLaylout, props]);
 
   useImperativeHandle(ref, () => ({
     scrollDistances(distanceX: number, distanceY: number, durationMs: number) {
@@ -58,9 +79,13 @@ const InfiniteScrollview = forwardRef<
 
   return (
     <NativeComponent
-      {...props}
-      disableTouch={props.disableTouch || false}
+      {...nativeProps}
+      disableTouch={nativeProps.disableTouch || false}
       ref={nativeRef}
+      onLayout={(e) => {
+        setRnLayout(e.nativeEvent.layout);
+        nativeProps.onLayout?.(e);
+      }}
     />
   );
 });

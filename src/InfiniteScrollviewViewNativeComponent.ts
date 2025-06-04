@@ -3,11 +3,18 @@ import type { Float, Int32 } from 'react-native/Libraries/Types/CodegenTypes';
 import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 
+interface AndroidSpacing {
+  rnWidth: Float;
+  rnHeight: Float;
+  spacingHor: Float;
+  spacingVer: Float;
+}
 interface NativeProps extends ViewProps {
   lockDirection?: string;
   disableTouch: boolean;
   spacingHorizontal?: Float;
   spacingVertical?: Float;
+  spacing?: AndroidSpacing;
 }
 
 export default codegenNativeComponent<NativeProps>('InfiniteScrollviewView');

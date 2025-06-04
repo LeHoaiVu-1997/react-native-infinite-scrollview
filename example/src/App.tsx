@@ -9,19 +9,15 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <InfiniteScrollview
-        ref={ref}
-        lockDirection={undefined}
-        style={styles.boxCylinder}
-        // spacingHorizontal={50}
-        // spacingVertical={50}
-      >
-        <Image
-          source={require('./sample-pic.jpg')}
-          resizeMode="cover"
-          style={styles.img}
-        />
-      </InfiniteScrollview>
+      <View style={styles.boxCylinderWarpper}>
+        <InfiniteScrollview ref={ref} style={styles.boxCylinder}>
+          <Image
+            source={require('./sample-pic.jpg')}
+            resizeMode="cover"
+            style={styles.img}
+          />
+        </InfiniteScrollview>
+      </View>
       <View style={styles.rowFull}>
         <TouchableOpacity
           style={styles.btn}
@@ -29,7 +25,7 @@ export default function App() {
             ref.current?.scrollDistances(1.5, 1.5, 3000);
           }}
         >
-          <Text>Scroll a distance to bottom right</Text>
+          <Text>{'Scroll a distance\nto bottom right'}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btn}
@@ -37,7 +33,7 @@ export default function App() {
             ref.current?.scrollDistances(-1.5, -1.5, 3000);
           }}
         >
-          <Text>Scroll a distance to top left</Text>
+          <Text>{'Scroll a distance\nto top left'}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.rowFull}>
@@ -47,7 +43,7 @@ export default function App() {
             ref.current?.scrollContinuously(0.5, 0.5);
           }}
         >
-          <Text>Scroll continuously to bottom right</Text>
+          <Text>{'Scroll continuously\nto bottom right'}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btn}
@@ -55,7 +51,7 @@ export default function App() {
             ref.current?.scrollContinuously(-0.5, -0.5);
           }}
         >
-          <Text>Scroll continuously to top left</Text>
+          <Text>{'Scroll continuously\nto top left'}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.rowFull}>
@@ -87,9 +83,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     backgroundColor: 'grey',
   },
-  boxCylinder: {
+  boxCylinderWarpper: {
     width: 260,
     height: 260,
+  },
+  boxCylinder: {
+    flex: 1,
     backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
