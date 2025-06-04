@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   },
   boxCylinder: {
     flex: 1,
-    backgroundColor: 'red',
+    backgroundColor: '#ff00ffaa',
     justifyContent: 'center',
     alignItems: 'center',
   },

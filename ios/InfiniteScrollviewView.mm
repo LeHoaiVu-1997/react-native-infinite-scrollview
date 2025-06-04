@@ -5,7 +5,7 @@
 #import <react/renderer/components/InfiniteScrollviewViewSpec/Props.h>
 #import <react/renderer/components/InfiniteScrollviewViewSpec/RCTComponentViewHelpers.h>
 #import "UIView+OriginalPosition.h"
-
+#import <react/renderer/graphics/Color.h>
 #import "RCTFabricComponentsPlugins.h"
 
 using namespace facebook::react;
@@ -72,6 +72,20 @@ Class<RCTComponentViewProtocol> InfiniteScrollviewViewCls(void)
   }
 }
 
+CGColorRef CGColorFromSharedColor(SharedColor const &sharedColor) {
+  if (!sharedColor) {
+    return nil;
+  }
+
+  const auto color = *sharedColor;
+  CGFloat r = ((color >> 16) & 0xFF) / 255.0;
+  CGFloat g = ((color >> 8) & 0xFF) / 255.0;
+  CGFloat b = (color & 0xFF) / 255.0;
+  CGFloat a = ((color >> 24) & 0xFF) / 255.0;
+
+  return [UIColor colorWithRed:r green:g blue:b alpha:a].CGColor;
+}
+
 - (void)updateProps:(Props::Shared const &)props oldProps:(Props::Shared const &)oldProps
 {
   const auto &oldViewProps = *std::static_pointer_cast<InfiniteScrollviewViewProps const>(_props);
@@ -94,6 +108,11 @@ Class<RCTComponentViewProtocol> InfiniteScrollviewViewCls(void)
     self.spacingHorizontal = newViewProps.spacingHorizontal;
     [self setNeedsDisplay];
   }
+  
+//  if (oldViewProps.backgroundColor != newViewProps.backgroundColor) {
+//    self.layer.backgroundColor = CGColorFromSharedColor(newViewProps.backgroundColor);
+//    [self setNeedsDisplay];
+//  }
   
   [super updateProps:props oldProps:oldProps];
 }
@@ -306,6 +325,10 @@ Class<RCTComponentViewProtocol> InfiniteScrollviewViewCls(void)
   [super drawRect:rect];
   CGContextRef context = UIGraphicsGetCurrentContext();
   CGContextClearRect(context, rect);
+//  if (self.layer.backgroundColor) {
+//    CGContextSetFillColorWithColor(context, self.layer.backgroundColor);
+//    CGContextFillRect(context, rect);
+//  }
   [self handleDrawAndClipMirrors:context];
   [self rePositioning];
 }
