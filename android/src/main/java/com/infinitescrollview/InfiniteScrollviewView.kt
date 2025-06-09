@@ -116,13 +116,9 @@ class InfiniteScrollviewView(context: Context?) : ReactViewGroup(context) {
     isMethodScrolling = true
     remainingDistance = distances
     // Calculating duration
-    if (remainingDistance.first == 0f && totalDistance.first == 0f) {
-      duration = (remainingDistance.second * duration / totalDistance.second).toInt()
-    } else if (remainingDistance.second == 0f && totalDistance.second == 0f) {
-      duration = (remainingDistance.first * duration / totalDistance.first).toInt()
-    } else {
-      duration = max((remainingDistance.second * duration / totalDistance.second).toInt(), (remainingDistance.first * duration / totalDistance.first).toInt())
-    }
+    val durationFir = if (totalDistance.first == 0.0f) 0 else (remainingDistance.first * duration / totalDistance.first).toInt()
+    val durationSec = if (totalDistance.second == 0.0f) 0 else (remainingDistance.second * duration / totalDistance.second).toInt()
+    duration = max(durationFir, durationSec)
 
     if (remainingDistance.first == 0f && remainingDistance.second == 0f) {
       totalDistance = Pair(0f, 0f)

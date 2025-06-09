@@ -109,10 +109,10 @@ CGColorRef CGColorFromSharedColor(SharedColor const &sharedColor) {
     [self setNeedsDisplay];
   }
   
-//  if (oldViewProps.backgroundColor != newViewProps.backgroundColor) {
-//    self.layer.backgroundColor = CGColorFromSharedColor(newViewProps.backgroundColor);
-//    [self setNeedsDisplay];
-//  }
+  if (oldViewProps.backgroundColor != newViewProps.backgroundColor) {
+    self.layer.backgroundColor = CGColorFromSharedColor(newViewProps.backgroundColor);
+    [self setNeedsDisplay];
+  }
   
   [super updateProps:props oldProps:oldProps];
 }
@@ -325,10 +325,10 @@ CGColorRef CGColorFromSharedColor(SharedColor const &sharedColor) {
   [super drawRect:rect];
   CGContextRef context = UIGraphicsGetCurrentContext();
   CGContextClearRect(context, rect);
-//  if (self.layer.backgroundColor) {
-//    CGContextSetFillColorWithColor(context, self.layer.backgroundColor);
-//    CGContextFillRect(context, rect);
-//  }
+  if (self.layer.backgroundColor) {
+    CGContextSetFillColorWithColor(context, self.layer.backgroundColor);
+    CGContextFillRect(context, rect);
+  }
   [self handleDrawAndClipMirrors:context];
   [self rePositioning];
 }
