@@ -72,6 +72,13 @@ Class<RCTComponentViewProtocol> InfiniteScrollviewViewCls(void)
   }
 }
 
+- (void)resetSubviews {
+  for (UIView *subview in self.subviews) {
+    subview.frame = CGRectOffset(subview.frame, subview.originalPosition.x - subview.frame.origin.x, subview.originalPosition.y - subview.frame.origin.y);
+  }
+  [self setNeedsDisplay];
+}
+
 CGColorRef CGColorFromSharedColor(SharedColor const &sharedColor) {
   if (!sharedColor) {
     return nil;
@@ -86,6 +93,8 @@ CGColorRef CGColorFromSharedColor(SharedColor const &sharedColor) {
   return [UIColor colorWithRed:r green:g blue:b alpha:a].CGColor;
 }
 
+#pragma mark - Fabric props update
+#if RCT_NEW_ARCH_ENABLED
 - (void)updateProps:(Props::Shared const &)props oldProps:(Props::Shared const &)oldProps
 {
   const auto &oldViewProps = *std::static_pointer_cast<InfiniteScrollviewViewProps const>(_props);
@@ -116,13 +125,7 @@ CGColorRef CGColorFromSharedColor(SharedColor const &sharedColor) {
   
   [super updateProps:props oldProps:oldProps];
 }
-
-- (void)resetSubviews {
-  for (UIView *subview in self.subviews) {
-    subview.frame = CGRectOffset(subview.frame, subview.originalPosition.x - subview.frame.origin.x, subview.originalPosition.y - subview.frame.origin.y);
-  }
-  [self setNeedsDisplay];
-}
+#endif
 
 #pragma mark - Legacy setter
 #if !RCT_NEW_ARCH_ENABLED
@@ -142,6 +145,11 @@ CGColorRef CGColorFromSharedColor(SharedColor const &sharedColor) {
 
 - (void)setSpacingHorizontal:(id)spacingHorizontal {
   _spacingHorizontal = ([spacingHorizontal isKindOfClass:[NSNumber class]] && [spacingHorizontal intValue] > 0) ? [spacingHorizontal intValue] : 0;
+  [self setNeedsDisplay];
+}
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor {
+  self.layer.backgroundColor = backgroundColor.CGColor;
   [self setNeedsDisplay];
 }
 
