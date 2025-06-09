@@ -32,7 +32,11 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-infinite-scrollview-example",
+    "example-codegen-android": "cd example/android && ./gradlew clean && ./gradlew generateCodegenArtifactsFromSchema && cd ../..",
+    "example-codegen-ios": "cd example/ios && pod deintegrate && pod install && cd ../..",
+    "example-start": "yarn workspace react-native-infinite-scrollview-example start",
+    "example-android": "yarn workspace react-native-infinite-scrollview-example android",
+    "example-ios": "yarn workspace react-native-infinite-scrollview-example ios",
     "test": "jest",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
@@ -88,9 +92,6 @@
     "react": "*",
     "react-native": "*"
   },
-  "workspaces": [
-    "example"
-  ],
   "packageManager": "yarn@3.6.1",
   "jest": {
     "preset": "react-native",

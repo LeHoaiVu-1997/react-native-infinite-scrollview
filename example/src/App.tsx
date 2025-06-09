@@ -1,10 +1,77 @@
-import { View, StyleSheet } from 'react-native';
-import { InfiniteScrollviewView } from 'react-native-infinite-scrollview';
+import { useRef } from 'react';
+import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
+import InfiniteScrollview, {
+  type InfiniteScrollviewMethods,
+} from 'react-native-infinite-scrollview';
 
 export default function App() {
+  const ref = useRef<InfiniteScrollviewMethods>(null);
+
   return (
     <View style={styles.container}>
-      <InfiniteScrollviewView color="#32a852" style={styles.box} />
+      <View style={styles.boxCylinderWarpper}>
+        <InfiniteScrollview ref={ref} style={styles.boxCylinder}>
+          <Image
+            source={require('./sample-pic.jpg')}
+            resizeMode="cover"
+            style={styles.img}
+          />
+        </InfiniteScrollview>
+      </View>
+      <View style={styles.rowFull}>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => {
+            ref.current?.scrollDistances(1.5, 1.5, 3000);
+          }}
+        >
+          <Text>{'Scroll a distance\nto bottom right'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => {
+            ref.current?.scrollDistances(-1.5, -1.5, 3000);
+          }}
+        >
+          <Text>{'Scroll a distance\nto top left'}</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.rowFull}>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => {
+            ref.current?.scrollContinuously(0.5, 0.5);
+          }}
+        >
+          <Text>{'Scroll continuously\nto bottom right'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => {
+            ref.current?.scrollContinuously(-0.5, -0.5);
+          }}
+        >
+          <Text>{'Scroll continuously\nto top left'}</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.rowFull}>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => {
+            ref.current?.stopScrolling();
+          }}
+        >
+          <Text>Stop scrolling</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => {
+            ref.current?.reset();
+          }}
+        >
+          <Text>Reset position</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -13,11 +80,34 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
+    backgroundColor: 'grey',
   },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
+  boxCylinderWarpper: {
+    width: 260,
+    height: 260,
+  },
+  boxCylinder: {
+    flex: 1,
+    backgroundColor: '#ff00aaaa',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  img: {
+    height: '80%',
+    width: '80%',
+    backgroundColor: 'green',
+  },
+  btn: {
+    paddingHorizontal: 25,
+    paddingVertical: 15,
+    borderWidth: 2,
+    borderColor: 'orange',
+    borderRadius: 10,
+  },
+  rowFull: {
+    width: '100%',
+    justifyContent: 'space-evenly',
+    flexDirection: 'row',
   },
 });

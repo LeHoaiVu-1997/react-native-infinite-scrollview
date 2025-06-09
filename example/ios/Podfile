@@ -16,6 +16,23 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
+pre_install do |installer|
+  # Adjust path to match actual hoisted location
+  react_native_path = File.expand_path("../../node_modules/react-native", __dir__)
+
+  Dir.glob("#{installer.sandbox.root}/Target Support Files/ReactCodegen/*.sh") do |script|
+    text = File.read(script)
+
+    updated = text.gsub(
+      "${REACT_NATIVE_PATH}/scripts/xcode/with-environment.sh",
+      "#{react_native_path}/scripts/xcode/with-environment.sh"
+    )
+
+    File.write(script, updated)
+  end
+end
+
+
 target 'InfiniteScrollviewExample' do
   config = use_native_modules!
 
