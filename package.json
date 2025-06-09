@@ -1,6 +1,6 @@
 {
   "name": "react-native-infinite-scrollview",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Infinite scrollview for React Native",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
@@ -83,16 +83,19 @@
     "prettier": "^3.0.3",
     "react": "19.0.0",
     "react-native": "0.79.2",
-    "react-native-builder-bob": "^0.40.10",
     "release-it": "^17.10.0",
     "turbo": "^1.10.7",
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-builder-bob": "^0.40.10"
   },
-  "packageManager": "yarn@3.6.1",
+  "workspaces": [
+    "example"
+  ],
+  "packageManager": "yarn@4.9.2",
   "jest": {
     "preset": "react-native",
     "modulePathIgnorePatterns": [
