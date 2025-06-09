@@ -10591,13 +10591,13 @@ __metadata:
     prettier: "npm:^3.0.3"
     react: "npm:19.0.0"
     react-native: "npm:0.79.2"
-    react-native-builder-bob: "npm:^0.40.10"
     release-it: "npm:^17.10.0"
     turbo: "npm:^1.10.7"
     typescript: "npm:^5.2.2"
   peerDependencies:
     react: "*"
     react-native: "*"
+    react-native-builder-bob: ^0.40.10
   languageName: unknown
   linkType: soft
 
