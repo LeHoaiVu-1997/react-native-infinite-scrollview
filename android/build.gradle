@@ -63,9 +63,9 @@ android {
     }
   }
 
-  // kotlinOptions {
-  //     jvmTarget = "11" // Compatibility with react native 0.72
-  // }
+  kotlinOptions {
+      jvmTarget = "11"
+  }
 }
 
 repositories {
