@@ -70,7 +70,6 @@ repositories {
 }
 
 def kotlin_version = getExtOrDefault("kotlinVersion")
-println("my lib kotlin_version: " + kotlin_version)
 dependencies {
   implementation "com.facebook.react:react-android"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
