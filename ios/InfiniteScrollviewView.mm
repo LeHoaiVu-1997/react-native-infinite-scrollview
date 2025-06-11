@@ -170,7 +170,7 @@ CGColorRef CGColorFromSharedColor(SharedColor const &sharedColor) {
   if ([commandName isEqualToString:@"reset"]) {
     [self reset];
   } else if ([commandName isEqualToString:@"stopScrolling"]) {
-    BOOL reset = (BOOL)args[0];
+    BOOL reset = [(NSNumber *)args[0] boolValue];
     [self stopScrolling:reset];
   } else if ([commandName isEqualToString:@"scrollContinuously"]) {
     float distanceX = [(NSNumber *)args[0] floatValue];
