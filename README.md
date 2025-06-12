@@ -10,7 +10,7 @@ This component takes another one as its children, also allows translating the ch
 ## Installation
 
 ```sh
-yarn add react-native-infinite-scrollview
+yarn add @levu97/react-native-infinite-scrollview
 ```
 
 Fabric and Paper supported. Make sure you run codegen commands:
@@ -33,7 +33,7 @@ cd ios && pod install
 ```js
 import InfiniteScrollview, {
   type InfiniteScrollviewMethods,
-} from 'react-native-infinite-scrollview';
+} from '@vule97/react-native-infinite-scrollview';
 
 const ref = useRef<InfiniteScrollviewMethods>(null);
 

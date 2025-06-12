@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-infinite-scrollview": ["./src/index"]
+      "@vule97/react-native-infinite-scrollview": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

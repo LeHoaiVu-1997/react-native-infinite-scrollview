@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
 import InfiniteScrollview, {
   type InfiniteScrollviewMethods,
-} from 'react-native-infinite-scrollview';
+} from '@vule97/react-native-infinite-scrollview';
 
 export default function App() {
   const ref = useRef<InfiniteScrollviewMethods>(null);
