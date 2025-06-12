@@ -1,22 +1,25 @@
-#import <React/RCTViewComponentView.h>
 #import <UIKit/UIKit.h>
 
 #ifndef InfiniteScrollviewViewNativeComponent_h
 #define InfiniteScrollviewViewNativeComponent_h
 
-NS_ASSUME_NONNULL_BEGIN
+#if RCT_NEW_ARCH_ENABLED
+
+#import <React/RCTViewComponentView.h>
 
 @interface InfiniteScrollviewView : RCTViewComponentView
 
-#if !RCT_NEW_ARCH_ENABLED
+#else
+
+@interface InfiniteScrollviewView : UIView
+NS_ASSUME_NONNULL_BEGIN
 - (void)reset;
 - (void)stopScrolling:(BOOL)reset;
 - (void)scrollDistances:(float)distanceX distanceY:(float)distanceY durationMs:(NSInteger)durationMs;
 - (void)scrollContinuously:(float)distanceX distanceY:(float)distanceY;
+NS_ASSUME_NONNULL_END
 #endif
 
 @end
-
-NS_ASSUME_NONNULL_END
 
 #endif /* InfiniteScrollviewViewNativeComponent_h */
