@@ -11,7 +11,22 @@ on:
       - checks_requested
 
 jobs:
+  check-commit-message:
+    runs-on: ubuntu-latest
+    outputs:
+      run_ci: ${{ steps.check.outputs.run_ci }}
+    steps:
+      - id: check
+        run: |
+          echo "Checking commit message: '${{ github.event.head_commit.message }}'"
+          if [[ "${{ github.event.head_commit.message }}" == *"ci:"* ]] || [[ "${{ github.event.head_commit.message }}" == *"build:"* ]]; then
+            echo "run_ci=true" >> $GITHUB_OUTPUT
+          else
+            echo "run_ci=false" >> $GITHUB_OUTPUT
+
   lint:
+    needs: check-commit-message
+    if: needs.check-commit-message.outputs.run_ci == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,6 +42,8 @@ jobs:
         run: yarn typecheck
 
   test:
+    needs: check-commit-message
+    if: needs.check-commit-message.outputs.run_ci == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -39,6 +56,8 @@ jobs:
         run: yarn test --maxWorkers=2 --coverage
 
   build-library:
+    needs: check-commit-message
+    if: needs.check-commit-message.outputs.run_ci == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -51,6 +70,8 @@ jobs:
         run: yarn prepare
 
   build-android:
+    needs: check-commit-message
+    if: needs.check-commit-message.outputs.run_ci == 'true'
     runs-on: ubuntu-latest
     env:
       TURBO_CACHE_DIR: .turbo/android
@@ -107,6 +128,8 @@ jobs:
           yarn turbo run build:android --cache-dir="${{ env.TURBO_CACHE_DIR }}"
 
   build-ios:
+    needs: check-commit-message
+    if: needs.check-commit-message.outputs.run_ci == 'true'
     runs-on: macos-latest
     env:
       XCODE_VERSION: 16.2

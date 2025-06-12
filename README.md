@@ -24,7 +24,7 @@ cd ios && pod install
 ```
 
 **Note**: 
-- yarn 4.x recommended.
+- yarn 4.x and node 22 recommended.
 - Support react native 0.72.* and above.
 
 
