@@ -23,6 +23,7 @@ jobs:
             echo "run_ci=true" >> $GITHUB_OUTPUT
           else
             echo "run_ci=false" >> $GITHUB_OUTPUT
+          fi
 
   lint:
     needs: check-commit-message
