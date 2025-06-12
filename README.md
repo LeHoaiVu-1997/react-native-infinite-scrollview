@@ -10,7 +10,7 @@ This component takes another one as its children, also allows translating the ch
 ## Installation
 
 ```sh
-yarn add @levu97/react-native-infinite-scrollview
+yarn add @vule97/react-native-infinite-scrollview
 ```
 
 Fabric and Paper supported. Make sure you run codegen commands:
@@ -26,7 +26,7 @@ cd ios && pod install
 **Note**: 
 - yarn 4.x and node 22 recommended.
 - Support react native 0.72.* and above.
-
+- Projects use react native 0.72.* might need to use kotlin ```1.7.22```.
 
 ## Usage
 
