@@ -14,8 +14,14 @@ yarn add react-native-infinite-scrollview
 ```
 
 Fabric and Paper supported. Make sure you run codegen commands:
-- Android: ```cd android && ./gradlew generateCodegenArtifactsFromSchema```
-- iOS: ```cd ios && pod install```
+- Android: 
+```sh 
+cd android && ./gradlew generateCodegenArtifactsFromSchema
+```
+- iOS: 
+```sh
+cd ios && pod install
+```
 
 **Note**: 
 - yarn 4.x recommended.

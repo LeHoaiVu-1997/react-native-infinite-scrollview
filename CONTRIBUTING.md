@@ -29,22 +29,28 @@ To edit the Java or Kotlin files, open `example/android` in Android studio and f
 
 You can use various commands from the root directory to work with the project.
 
+Make sure you run codegen commands:
+```sh
+yarn example-codegen-android
+yarn example-codegen-ios
+```
+
 To start the packager:
 
 ```sh
-yarn example start
+yarn example-start
 ```
 
 To run the example app on Android:
 
 ```sh
-yarn example android
+yarn example-android
 ```
 
 To run the example app on iOS:
 
 ```sh
-yarn example ios
+yarn example-ios
 ```
 
 To confirm that the app is running with the new architecture, you can check the Metro logs for a message like this:
