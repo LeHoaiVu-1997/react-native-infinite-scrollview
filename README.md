@@ -6,16 +6,23 @@ This component takes another one as its children, also allows translating the ch
 
 <img src="demo.gif" width="240" />
 
+
 ## Installation
 
 ```sh
 yarn add react-native-infinite-scrollview
 ```
 
-Note: yarn 4.x recommended.
+Fabric and Paper supported. Make sure you run codegen commands:
+- Android: ```cd android && ./gradlew generateCodegenArtifactsFromSchema```
+- iOS: ```cd ios && pod install```
+
+**Note**: 
+- yarn 4.x recommended.
+- Support react native 0.72.* and above.
+
 
 ## Usage
-
 
 ```js
 import InfiniteScrollview, {
@@ -39,6 +46,7 @@ const ref = useRef<InfiniteScrollviewMethods>(null);
 </InfiniteScrollview>
 ```
 
+
 ## Properties
 
 | Property          | Type                | Default value    | Note                   |
@@ -50,6 +58,7 @@ const ref = useRef<InfiniteScrollviewMethods>(null);
 
 Beside the above porperties, ```InfiniteScrollview``` also contains those belong to react-native ```ViewProps```.
 
+
 ## Methods
 
 Property ```disableTouch``` does not apply for translating the child component via methods.
@@ -60,12 +69,12 @@ Property ```disableTouch``` does not apply for translating the child component v
 scrollDistances(distanceX: number, distanceY: number, durationMs: number): void
 ```
 
-- **Chức năng**: Translate the child component a distance in a duration of time.
-- **Tham số**:
+- **Feature**: Translate the child component a distance in a duration of time.
+- **Arguments**:
   - `distanceX` (number): Horizontal distance, based on **width** of **InfiniteScrollview**.
   - `distanceY` (number): Vertical distance, based on **height** of **InfiniteScrollview**.
   - `durationMs` (number): Translating duration in miliseconds.
-- **Ví dụ**: translate the child component to the bottom right a distance equals to 50% width and 50% height of ```InfiniteScrollview```, in 5000 miliseconds.
+- **Exmaple**: translate the child component to the bottom right a distance equals to 50% width and 50% height of ```InfiniteScrollview```, in 5000 miliseconds.
   ```typescript
   refCylinder.current?.scrollDistances(0.5, 0.5, 5000);
   ```
@@ -76,11 +85,11 @@ scrollDistances(distanceX: number, distanceY: number, durationMs: number): void
 scrollContinuously(distanceX: number, distanceY: number): void
 ```
 
-- **Chức năng**: Translate the child component a distance for every second.
-- **Tham số**:
+- **Feature**: Translate the child component a distance for every second.
+- **Arguments**:
   - `distanceX` (number): Horizontal distance, based on **width** of **InfiniteScrollview**.
   - `distanceY` (number): Vertical distance, based on **height** of **InfiniteScrollview**.
-- **Ví dụ**: translate the child component to the top left right a distance equals to 50% width and 50% height of ```InfiniteScrollview```, every second.
+- **Exmaple**: translate the child component to the top left right a distance equals to 50% width and 50% height of ```InfiniteScrollview```, every second.
   ```typescript
   refCylinder.current?.scrollContinuously(-0.5, -0.5);
   ```
@@ -91,10 +100,10 @@ scrollContinuously(distanceX: number, distanceY: number): void
 stopScrolling(reset?: boolean): void
 ```
 
-- **Chức năng**: Stop translation.
-- **Tham số**:
+- **Feature**: Stop translation.
+- **Arguments**:
   - `reset` (number | undefined): Move the child component to its original position when ```true```.
-- **Ví dụ**:
+- **Exmaple**:
   ```typescript
   refCylinder.current?.stopScrolling(true);
   ```
@@ -105,8 +114,8 @@ stopScrolling(reset?: boolean): void
 reset(): void
 ```
 
-- **Chức năng**: Move the child component to its original position.
-- **Ví dụ**:
+- **Arguments**: Move the child component to its original position.
+- **Exmaple**:
   ```typescript
   refCylinder.current?.reset();
   ```
@@ -114,7 +123,7 @@ reset(): void
 
 ## Change log
 
-Xem [change log](CHANGELOG.md) để biết các thay đổi qua từng phiên bản.
+See [change log](CHANGELOG.md).
 
 
 ## Cons
@@ -127,6 +136,7 @@ Xem [change log](CHANGELOG.md) để biết các thay đổi qua từng phiên b
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+
 
 ## License
 
