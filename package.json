@@ -1,6 +1,6 @@
 {
   "name": "@vule97/react-native-infinite-scrollview",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Infinite scrollview for React Native",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
