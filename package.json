@@ -1,6 +1,6 @@
 {
   "name": "react-native-infinite-scrollview",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "Infinite scrollview for React Native",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
@@ -51,14 +51,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LeHoaiVu-1997/react-native-infinite-scrollview/react-native-infinite-scrollview.git"
+    "url": "https://github.com/LeHoaiVu-1997/react-native-infinite-scrollview"
   },
   "author": "Lê Hoài Vũ <levumaiforwork@gmail.com> (https://github.com/LeHoaiVu-1997/react-native-infinite-scrollview)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/LeHoaiVu-1997/react-native-infinite-scrollview/react-native-infinite-scrollview/issues"
+    "url": "https://github.com/LeHoaiVu-1997/react-native-infinite-scrollview/issues"
   },
-  "homepage": "https://github.com/LeHoaiVu-1997/react-native-infinite-scrollview/react-native-infinite-scrollview#readme",
+  "homepage": "https://github.com/LeHoaiVu-1997/react-native-infinite-scrollview#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

@@ -1,16 +1,21 @@
 #import "InfiniteScrollviewView.h"
+#import "UIView+OriginalPosition.h"
 
+#if RCT_NEW_ARCH_ENABLED
 #import <react/renderer/components/InfiniteScrollviewViewSpec/ComponentDescriptors.h>
 #import <react/renderer/components/InfiniteScrollviewViewSpec/EventEmitters.h>
 #import <react/renderer/components/InfiniteScrollviewViewSpec/Props.h>
 #import <react/renderer/components/InfiniteScrollviewViewSpec/RCTComponentViewHelpers.h>
-#import "UIView+OriginalPosition.h"
 #import <react/renderer/graphics/Color.h>
 #import "RCTFabricComponentsPlugins.h"
 
 using namespace facebook::react;
 
 @interface InfiniteScrollviewView () <RCTInfiniteScrollviewViewViewProtocol>
+#else
+@interface InfiniteScrollviewView ()
+#endif
+
 // Properties for scroll continuously
 @property (nonatomic) BOOL isContinuouslyScroll;
 @property (nonatomic) CGFloat distanceIntervalX;
@@ -36,47 +41,15 @@ using namespace facebook::react;
 
 @implementation InfiniteScrollviewView
 
+#if RCT_NEW_ARCH_ENABLED
 + (ComponentDescriptorProvider)componentDescriptorProvider
 {
   return concreteComponentDescriptorProvider<InfiniteScrollviewViewComponentDescriptor>();
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-  if (self = [super initWithFrame:frame]) {
-    static const auto defaultProps = std::make_shared<const InfiniteScrollviewViewProps>();
-    _props = defaultProps;
-    self.clipsToBounds = YES;
-    _isContinuouslyScroll = NO;
-    _distanceIntervalX = 0;
-    _distanceIntervalY = 0;
-    _durationInterval = 1000;
-    _disableTouch = NO;
-    _lockDirection = nil;
-    _spacingVertical = 0;
-    _spacingHorizontal = 0;
-  }
-  
-  return self;
-}
-
 Class<RCTComponentViewProtocol> InfiniteScrollviewViewCls(void)
 {
   return InfiniteScrollviewView.class;
-}
-
-- (void)layoutSubviews {
-  [super layoutSubviews];
-  for (UIView *subview in self.subviews) {
-    subview.originalPosition = subview.frame.origin;
-  }
-}
-
-- (void)resetSubviews {
-  for (UIView *subview in self.subviews) {
-    subview.frame = CGRectOffset(subview.frame, subview.originalPosition.x - subview.frame.origin.x, subview.originalPosition.y - subview.frame.origin.y);
-  }
-  [self setNeedsDisplay];
 }
 
 CGColorRef CGColorFromSharedColor(SharedColor const &sharedColor) {
@@ -91,6 +64,42 @@ CGColorRef CGColorFromSharedColor(SharedColor const &sharedColor) {
   CGFloat a = ((color >> 24) & 0xFF) / 255.0;
 
   return [UIColor colorWithRed:r green:g blue:b alpha:a].CGColor;
+}
+#endif
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+  if (self = [super initWithFrame:frame]) {
+    #if RCT_NEW_ARCH_ENABLED
+    static const auto defaultProps = std::make_shared<const InfiniteScrollviewViewProps>();
+    _props = defaultProps;
+    #endif
+    self.clipsToBounds = YES;
+    _isContinuouslyScroll = NO;
+    _distanceIntervalX = 0;
+    _distanceIntervalY = 0;
+    _durationInterval = 1000;
+    _disableTouch = NO;
+    _lockDirection = nil;
+    _spacingVertical = 0;
+    _spacingHorizontal = 0;
+  }
+  
+  return self;
+}
+
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  for (UIView *subview in self.subviews) {
+    subview.originalPosition = subview.frame.origin;
+  }
+}
+
+- (void)resetSubviews {
+  for (UIView *subview in self.subviews) {
+    subview.frame = CGRectOffset(subview.frame, subview.originalPosition.x - subview.frame.origin.x, subview.originalPosition.y - subview.frame.origin.y);
+  }
+  [self setNeedsDisplay];
 }
 
 #pragma mark - Fabric props update
@@ -148,20 +157,15 @@ CGColorRef CGColorFromSharedColor(SharedColor const &sharedColor) {
   [self setNeedsDisplay];
 }
 
-- (void)setBackgroundColor:(UIColor *)backgroundColor {
-  self.layer.backgroundColor = backgroundColor.CGColor;
-  [self setNeedsDisplay];
-}
-
 #endif
 
 #pragma mark - Ref methods handling
-
+#if RCT_NEW_ARCH_ENABLED
 - (void)handleCommand:(const NSString *)commandName args:(const NSArray *)args {
   if ([commandName isEqualToString:@"reset"]) {
     [self reset];
   } else if ([commandName isEqualToString:@"stopScrolling"]) {
-    BOOL reset = (BOOL)args[0];
+    BOOL reset = [(NSNumber *)args[0] boolValue];
     [self stopScrolling:reset];
   } else if ([commandName isEqualToString:@"scrollContinuously"]) {
     float distanceX = [(NSNumber *)args[0] floatValue];
@@ -174,6 +178,7 @@ CGColorRef CGColorFromSharedColor(SharedColor const &sharedColor) {
     [self scrollDistances:distanceX distanceY:distanceY durationMs:durationMs];
   }
 }
+#endif
 
 - (void)reset {
   [self resetSubviews];
@@ -228,7 +233,7 @@ CGColorRef CGColorFromSharedColor(SharedColor const &sharedColor) {
     return;
   }
   [self removeAnimation];
-  [self animatingTranslate:self.distanceIntervalX distanceY:self.distanceIntervalX durationMs:self.durationInterval];
+  [self animatingTranslate:self.distanceIntervalX distanceY:self.distanceIntervalY durationMs:self.durationInterval];
 }
 
 - (void)handleMethodScrollDistances:(CGFloat)distanceX distanceY:(CGFloat)distanceY durationMs:(unsigned int)durationMs{
@@ -332,11 +337,13 @@ CGColorRef CGColorFromSharedColor(SharedColor const &sharedColor) {
 - (void)drawRect:(CGRect)rect {
   [super drawRect:rect];
   CGContextRef context = UIGraphicsGetCurrentContext();
+  #if RCT_NEW_ARCH_ENABLED
   CGContextClearRect(context, rect);
   if (self.layer.backgroundColor) {
     CGContextSetFillColorWithColor(context, self.layer.backgroundColor);
     CGContextFillRect(context, rect);
   }
+  #endif
   [self handleDrawAndClipMirrors:context];
   [self rePositioning];
 }
