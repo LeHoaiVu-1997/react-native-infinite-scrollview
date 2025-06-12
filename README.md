@@ -4,7 +4,7 @@ Infinite scrollview for React Native
 
 This component takes another one as its children, also allows translating the child in both horizontal and vertical directions. When a part of the child go out of the component border, a mirrored part will be rendered on the opposite side, creating an infinite scrolling effect.
 
-![Demo](demo.gif)
+<img src="demo.gif" width="240" />
 
 ## Installation
 
