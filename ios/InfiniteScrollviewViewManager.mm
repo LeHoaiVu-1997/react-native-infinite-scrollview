@@ -21,7 +21,6 @@ RCT_EXPORT_VIEW_PROPERTY(lockDirection, NSString)
 RCT_EXPORT_VIEW_PROPERTY(disableTouch, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(spacingHorizontal, NSNumber)
 RCT_EXPORT_VIEW_PROPERTY(spacingVertical, NSNumber)
-RCT_EXPORT_VIEW_PROPERTY(backgroundColor, UIColor)
 
 RCT_EXPORT_METHOD(reset:(nonnull NSNumber *)reactTag) {
   RCTUIManager *uiManager = [self.bridge moduleForClass:[RCTUIManager class]];

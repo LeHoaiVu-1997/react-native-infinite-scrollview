@@ -157,11 +157,6 @@ CGColorRef CGColorFromSharedColor(SharedColor const &sharedColor) {
   [self setNeedsDisplay];
 }
 
-- (void)setBackgroundColor:(UIColor *)backgroundColor {
-  self.layer.backgroundColor = backgroundColor.CGColor;
-  [self setNeedsDisplay];
-}
-
 #endif
 
 #pragma mark - Ref methods handling
@@ -238,7 +233,7 @@ CGColorRef CGColorFromSharedColor(SharedColor const &sharedColor) {
     return;
   }
   [self removeAnimation];
-  [self animatingTranslate:self.distanceIntervalX distanceY:self.distanceIntervalX durationMs:self.durationInterval];
+  [self animatingTranslate:self.distanceIntervalX distanceY:self.distanceIntervalY durationMs:self.durationInterval];
 }
 
 - (void)handleMethodScrollDistances:(CGFloat)distanceX distanceY:(CGFloat)distanceY durationMs:(unsigned int)durationMs{
@@ -342,11 +337,13 @@ CGColorRef CGColorFromSharedColor(SharedColor const &sharedColor) {
 - (void)drawRect:(CGRect)rect {
   [super drawRect:rect];
   CGContextRef context = UIGraphicsGetCurrentContext();
+  #if RCT_NEW_ARCH_ENABLED
   CGContextClearRect(context, rect);
   if (self.layer.backgroundColor) {
     CGContextSetFillColorWithColor(context, self.layer.backgroundColor);
     CGContextFillRect(context, rect);
   }
+  #endif
   [self handleDrawAndClipMirrors:context];
   [self rePositioning];
 }
